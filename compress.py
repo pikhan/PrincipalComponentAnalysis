@@ -8,7 +8,16 @@ import PIL
 
 
 def compress_images(DATA, k):
-    print('test')
+    Z = pca.compute_Z(DATA)
+    COV = pca.compute_covariance_matrix(Z)
+    L, PCS = pca.find_pcs(COV)
+    Z_star = pca.project_data(Z, PCS, L, 1, 0)
+    UT = (np.transpose(PCS)).real
+    Xcomp = (np.matmul(Z, UT)).astype(float)
+    if not os.path.exists('Output'):
+        os.mkdir('Output')
+    #for i in range(895)
+        #plt.imsave('Output',Xcomp[i], cmap = 'gray')
 
 def load_data(input_dir):
     DATA = []
@@ -18,5 +27,4 @@ def load_data(input_dir):
         continue
     return (np.asarray(DATA)).astype(float)
 
-print((load_data('/home/polymathykhan/Documents/Project4/Data/Train')).shape)
-
+compress_images(load_data('/home/polymathykhan/Documents/Project4/Data/ToCompare'), 1)

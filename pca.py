@@ -50,11 +50,3 @@ def project_data(Z, PCS, L, k, var):
     ZT = np.transpose(Z)
     adj = PCS[0]
     return np.matmul(adj, ZT)
-
-if __name__ == "__main__":
-    X = np.array([[-1, -1], [-1, 1], [1, -1], [1, 1]])
-    T = np.array([[9,39], [15,56], [25,93], [14,61],[10,50],[18,75],[0,32],[16,85],[5,42],[19,70],[16,66],[20,80]])
-    Z = compute_Z(X)
-    COV = compute_covariance_matrix(Z)
-    L, PCS = find_pcs(COV)
-    Z_star = project_data(Z, PCS, L, 1, 0)
